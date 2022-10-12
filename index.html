@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+      Animals' Night Out
+    </title>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <script>
+      var currentSlide = 0;
+      var goPrev = function(){
+        $("img").fadeOut();
+        currentSlide = (currentSlide - 1) % 4;
+        if(currentSlide < 0){
+          currentSlide = 4 + currentSlide;
+        }
+        $("img:nth-of-type(" + (currentSlide+1) + ")").stop().fadeIn(1000);
+        return;
+      }
+
+      var goNext = function(){
+        $("img").fadeOut();
+        currentSlide = (currentSlide + 1) % 4;
+        $("img:nth-of-type(" + (currentSlide+1) + ")").stop().fadeIn(1000);
+        return;
+      }
+
+      // Replace your play() function with this code. 
+      var audio
+      var intervalId;
+      function play() {
+        audio = new Audio('music/Enjoy The Ride.wav');
+        audio.play();
+        intervalId = window.setInterval(function(){
+          goNext();
+        }, 1000);
+      }
+
+      function stop(){
+        clearInterval(intervalId);
+        audio.pause();
+      }
+
+     </script>
+     <style>
+      img{
+        position: absolute;
+      }
+      #prev{
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+      }
+      #next{
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+      }
+      .button {
+        background-color: #000000;
+        color: #22ff00;
+        padding: 10px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        margin: 10px;
+        width: 90px;
+        height: 45px;
+    }
+     </style>
+  </head>
+
+  <p>Song: "Enjoy The Ride" by Christian Boesch</p>
+  <button onclick="play()" class="button">Play music</button>
+  <button onclick="stop()" class="button">Stop music</button>
+
+  <h1>Animals have a night out.</h1>
+  <h3>Cos even our four-legged friends need to have a good time.</h3>
+
+  <body onload='$("img").fadeOut(0);$("img:nth-of-type(1)").fadeIn()'>
+  <img src='images/a-painting-of-tigers-seated-at-a-restaurant-538520281.png'>
+  <img src='images/a-painting-of-lions-at-a-bar-during-happy-hour-993384033.png'>
+  <img src='images/a-painting-of-cheetahs-at-a-60s-diner-423183017.png'>
+  <img src='images/a-painting-of-a-cantina-full-of-leopards-701186115.png'>
+  <button onclick='goPrev()' id='prev'> Prev </button>
+  <button onclick='goNext()' id='next'> Next </button>
+
+
+  </body>
+</html>
